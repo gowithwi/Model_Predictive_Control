@@ -86,7 +86,24 @@ This trick benefits me in multiple ways. First, I don't need to worry about the 
 As a result, I will get the predictions. Of course, only the prediction from the first time frame matters, because all the remainings will be updated again before the second time frame.
 
 
+# 4. Latency
 
+In the real world, it will already be too late (~100ms) when the controller finished the optimization. To mitigate the latency, I need to send the correct statevalue that are meant for after 100ms into the algorithm. Assuming t=0sec we have the state of:
+
+       state<<0,0,0,v,cte,epsi;
+
+our goal is to rewrite the state as below to compensate for the latencty:
+
+       state<<px_lat,py_lat,psi_lat,v_lat,cte_lat,epsi_lat;
+       
+We can define the correlation as:
+
+       double px_lat = 0 + v*cos(0.0)*latency;
+       double py_lat = 0 + v*sin(0.0)*latency;
+       double psi_lat = 0 + v*delta*latency/Lf;
+       double v_lat = v + throttle_value*latency;
+       double cte_lat = cte + v*sin(0.0)*latency;
+            double epsi_lat = epsi + v*delta*latency/Lf;
 
 
 
