@@ -103,8 +103,9 @@ We can define the correlation as:
        double psi_lat = 0 + v*delta*latency/Lf;
        double v_lat = v + throttle_value*latency;
        double cte_lat = cte + v*sin(0.0)*latency;
-            double epsi_lat = epsi + v*delta*latency/Lf;
+       double epsi_lat = epsi + v*delta*latency/Lf;
 
+Please understand that, 0.0 stands for the psi (vehicle angle) at t0, and delta stands for the steering angle which is not necessarily zero at t0.
 
 
 
