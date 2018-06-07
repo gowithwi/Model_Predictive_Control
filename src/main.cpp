@@ -100,16 +100,16 @@ int main() {
           */
             for(int i = 0; i<ptsx.size();i++){
                 double shift_x = ptsx[i]-px;
-                double shift_y = ptsx[y]-px;
+                double shift_y = ptsy[i]-py;
                 ptsx[i] = (shift_x*cos(0-psi) - shift_y*sin(0-psi));
                 ptsy[i] = (shift_x*sin(0-psi) + shift_y*cos(0-psi));
             }
             
             
             double* ptrx = &ptsx[0];
-            Eigen::Map<Eigne::VectorXd> ptsx_transfrom(ptrx,6);
+            Eigen::Map<Eigen::VectorXd> ptsx_transfrom(ptrx,6);
             double* ptry = &ptsy[0];
-            Eigen::Map<Eigne::VectorXd> ptsy_transfrom(ptry,6);
+            Eigen::Map<Eigen::VectorXd> ptsy_transfrom(ptry,6);
             
             auto coeffs = polyfit(ptsx_transfrom,ptsy_transfrom,3);
             double cte = polyeval(coeffs,0);
