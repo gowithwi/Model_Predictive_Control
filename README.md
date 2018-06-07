@@ -16,6 +16,16 @@ The states were set as a vector in length of 6xN + 2x(N-1). The 6xN part stands 
        size_t delta_start = epsi_start + N;
        size_t a_start = delta_start + N - 1;
  
+ The correlation between states at time frame [t] and [t+1] are expressed by the equations below:
+
+
+        x_[t+1] = x[t] + v[t] * cos(psi[t]) * dt
+        y_[t+1] = y[t] + v[t] * sin(psi[t]) * dt
+        psi_[t+1] = psi[t] + v[t] / Lf * delta[t] * dt
+        v_[t+1] = v[t] + a[t] * dt
+        cte[t+1] = f(x[t]) - y[t] + v[t] * sin(epsi[t]) * dt
+        epsi[t+1] = psi[t] - psides[t] + v[t] * delta[t] / Lf * dt
+ 
 Then, I set the constrains. For example, two important constrains are the steering angle and acceleration. Typically, the car wheel can shift the steer angle within a range of 30degree. Further due to the actuator limit,the acceleration is also bounded in a range-- strong breaking or throttling is not only uncomfortable, but could also be dangerous. Given the above considerations, I set those two constrains as below.
      
     for (int i = delta_start; i < a_start; i++) {
