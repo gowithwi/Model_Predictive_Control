@@ -131,11 +131,11 @@ int main() {
 
             // in coordinate now, so use steering angle to predict x and y
             // psi = 0, delta !0;
-            double px_lat = 0 + v*cos(0.0)*latency;
-            double py_lat = 0 + v*sin(0.0)*latency;
+            double px_lat = 0 + v*cos(0.0+epsi)*latency;
+            double py_lat = 0 + v*sin(0.0+epsi)*latency;
             double psi_lat = 0 + v*delta*latency/Lf;
             double v_lat = v + throttle_value*latency;
-            double cte_lat = cte + v*sin(0.0)*latency;
+            double cte_lat = cte + v*sin(0.0+epsi)*latency;
             double epsi_lat = epsi + v*delta*latency/Lf;
 
             

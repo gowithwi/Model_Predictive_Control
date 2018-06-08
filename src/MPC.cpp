@@ -23,9 +23,8 @@ double dt = 0.1;
 // This is the length from front to CoG that has a similar radius.
 const double Lf = 2.67;
 
-double ref_v = 40;
 //to convert miles per hour to meter per second
-ref_v*=0.44704;
+double ref_v = 40 * 0.44704;
 
 double ref_epsi = 0;
 double ref_cte = 0;
