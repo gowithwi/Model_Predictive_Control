@@ -1,4 +1,4 @@
-// 0841
+// 0611
 #include <math.h>
 #include <uWS/uWS.h>
 #include <chrono>
@@ -118,24 +118,26 @@ int main() {
             double epsi = -atan(coeffs[1]);
             
             
-          double steer_value = j[1]["steering_angle"];
+//          double steer_value = j[1]["steering_angle"];
           double throttle_value = j[1]["throttle"];
             double Lf = 2.67;
 
             Eigen::VectorXd state(6);
             
             double latency = 0.1; // assuming latency of 0.1sec
-            double delta = -j[1]["steering_angle"];
+            double delta =- (double)j[1]["steering_angle"];
             //to convert miles per hour to meter per second
             v*=0.44704;
-
             // in coordinate now, so use steering angle to predict x and y
-            // psi = 0, delta !0;
-            double px_lat = 0 + v*cos(0.0+epsi)*latency;
-            double py_lat = 0 + v*sin(0.0+epsi)*latency;
+//            double px_lat = 0 + v*cos(0.0+epsi)*latency;
+//            double py_lat = 0 + v*sin(0.0+epsi)*latency;
+            psi = 0.0;
+            double px_lat = 0 + v*cos(psi)*latency;
+            double py_lat = 0 + v*sin(psi)*latency;
+            
             double psi_lat = 0 + v*delta*latency/Lf;
             double v_lat = v + throttle_value*latency;
-            double cte_lat = cte + v*sin(0.0+epsi)*latency;
+            double cte_lat = cte + v*sin(epsi)*latency;
             double epsi_lat = epsi + v*delta*latency/Lf;
 
             
